@@ -1,4 +1,5 @@
 gps-tracker
 ===========
+Django app designed to receive GPS report from remote GPS devices with internet access like the SANAV CT-24
 
-Receive and process GPS locations from remote devices via HTTP
+Initial support for GPS reports as NMEA 0183 GPRMC sentences
