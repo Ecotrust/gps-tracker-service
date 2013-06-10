@@ -4,7 +4,7 @@ import datetime
 class Report(models.Model):
     # Regular Django fields corresponding to the attributes in the
     # world borders shapefile.
-    imei = models.IntegerField()
+    imei = models.BigIntegerField()
     nmea_type = models.CharField(max_length=4)
     timestamp = models.DateTimeField()
     status = models.CharField(max_length=1)
