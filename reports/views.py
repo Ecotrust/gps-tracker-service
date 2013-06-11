@@ -6,7 +6,7 @@ from django.contrib.gis.geos import Point
 
 def submit(request):
     imei = request.GET['imei']
-    nmea_str = request.GET['RMC']
+    nmea_str = request.GET['rmc']
     nmea_list = nmea_str.split(",")
 
     #Sanav sentence is of type GPRMC with a couple extra attributes for voltage and report type
