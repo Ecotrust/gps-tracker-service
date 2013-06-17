@@ -26,6 +26,9 @@ def submit(request):
     #Voltage - 3777mv
     #Report type - POLL
 
+    import pdb
+    pdb.set_trace()
+
     rep_time = nmea_list[1]
     rep_lat = nmea_list[3]
     rep_lat_dir = nmea_list[4]
@@ -35,7 +38,7 @@ def submit(request):
 
     r = Report()
     r.imei = imei
-    r.nmea_type = nmea_list[0][-1:]
+    r.nmea_type = nmea_list[0][1:]
     r.status = nmea_list[2]
     r.speed = nmea_list[7]
     r.course = nmea_list[8]

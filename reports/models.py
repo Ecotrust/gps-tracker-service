@@ -5,7 +5,7 @@ class Report(models.Model):
     # Regular Django fields corresponding to the attributes in the
     # world borders shapefile.
     imei = models.BigIntegerField()
-    nmea_type = models.CharField(max_length=4)
+    nmea_type = models.CharField(max_length=5)
     timestamp = models.DateTimeField()
     status = models.CharField(max_length=1)
     loc = models.PointField(srid=4326)
@@ -14,6 +14,7 @@ class Report(models.Model):
     voltage = models.IntegerField()
     rep_type = models.TextField()
     nmea_sentence = models.TextField()
+    notes = models.TextField()
     objects = models.GeoManager()
 
     @property
