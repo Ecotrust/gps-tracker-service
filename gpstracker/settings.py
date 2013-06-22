@@ -117,7 +117,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'reports'
+    'reports',
+    'tastypie'
 )
 
 # A sample logging configuration. The only tangible logging

@@ -5,6 +5,10 @@ import pytz
 from django.contrib.gis.geos import Point
 
 def submit(request):
+
+    if not request.GET.has_key('imei'):
+        return HttpResponse("Expected additional parameters")
+
     imei = request.GET['imei']
     nmea_str = request.GET['rmc']
     nmea_list = nmea_str.split(",")
@@ -64,4 +68,4 @@ def submit(request):
 
     r.save()
     
-    return HttpResponse("")
+    return HttpResponse("Report logged")
