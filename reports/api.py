@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from tastypie import fields
-from tastypie.contrib.gis.resources import ModelResource
+from tastypie.resources import ModelResource
 
 from models import Report
 from tastypie.authentication import Authentication

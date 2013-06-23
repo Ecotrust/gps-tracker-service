@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>GPS Report Map</title>
+    <link rel="stylesheet" href="/static/common/openlayers/theme/default/style.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+    <style type="text/css">
+    .olControlAttribution {
+        left: 2px;
+        right: inherit;
+        bottom: 3px;
+        line-height: 11px;
+    }
+    .smallmap {
+        width: 900px;
+        height: 600px;
+        border: 1px solid #ccc;
+    }    
+    </style>
+  </head>
+  <body>
+    <h1 id="title">GPS Report Map</h1>
+    <div id="map" class="smallmap"></div>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://openlayers.org/dev/OpenLayers.debug.js"></script>
+    <script type="text/javascript">
+        var ol = new OpenLayers.Layer.OSM();
+
+        var start_point = new OpenLayers.Geometry.Point(0,10);
+        var end_point = new OpenLayers.Geometry.Point(30,0);
+
+        var vector = new OpenLayers.Layer.Vector();
+        var center = new OpenLayers.LonLat(0, 5);
+        var map = new OpenLayers.Map({
+            div: "map",
+            layers: [ol, vector],
+            center: center,
+            zoom: 3
+        });
+
+        var sphere_proj = new OpenLayers.Projection("EPSG:4326");
+        var merc_proj = new OpenLayers.Projection("EPSG:900913");
+
+        var wkt_format = new OpenLayers.Format.WKT();
+
+        $.ajax({
+            url: "/api/v1/report/?format=json",
+            context: document.body
+        }).success(function(data, status, xhr) {
+            //vector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);
+
+            data.objects.forEach( function(report) { 
+                feat = wkt_format.read(report.loc);                 
+                feat.geometry = feat.geometry.transform(sphere_proj, merc_proj);
+                vector.addFeatures([feat]);
+            } )
+            map.zoomToExtent(vector.getDataExtent());
+        });
+    </script>
+  </body>
+</html>
