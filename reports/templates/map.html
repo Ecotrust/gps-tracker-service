@@ -40,7 +40,7 @@
             popup = new OpenLayers.Popup.FramedCloud("",
                 feature.geometry.getBounds().getCenterLonLat(),
                 null,
-                "<div style='font-size:.8em'>Time: " + feature.timestamp + "<br>Speed: " + feature.speed + "<br/>Status: " + feature.rep_type + "</div>",
+                "<div style='font-size:.8em'>Time: " + feature.timestamp + "<br>Speed: " + feature.speed + " knots<br/>Course: "+ feature.course + "&#176;<br/>Status: " + feature.rep_type + "</div>",
                 null, true, onPopupClose);
             feature.popup = popup;
             map.addPopup(popup);
@@ -154,6 +154,7 @@
                 feat.course = report.course;
                 feat.rep_type = report.rep_type;
                 feat.speed = report.speed;
+                feat.course = report.course;
                 feat.timestamp = report.timestamp;
                 point_vector.addFeatures([feat]);
                 point_list.push(feat.geometry);                
