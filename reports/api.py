@@ -30,6 +30,6 @@ class ReportResource(ModelResource):
     def dehydrate(self, bundle):
         # format the timestamp to include timezone as tastypie doesn't
         bundle.data['timestamp'] = date(bundle.obj.timestamp, 'c')
-        time = bundle.obj.timestamp-datetime.timedelta(hours=8)
+        time = bundle.obj.timestamp+datetime.timedelta(hours=8)
         bundle.data['ak_time'] = datetime.datetime(time.year+2000, time.month, time.day, time.hour, time.minute, time.second).strftime("%d/%m/%y %H:%M")
         return bundle        
