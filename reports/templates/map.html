@@ -49,7 +49,7 @@
         var wkt_format = new OpenLayers.Format.WKT();
 
         $.ajax({
-            url: "/api/v1/report/?format=json",
+            url: "/api/v1/report/?format=json&limit=0",
             context: document.body
         }).success(function(data, status, xhr) {
             //vector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString([start_point, end_point]).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")))]);
