@@ -8,6 +8,8 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+LOGIN_URL = '/admin'
+
 MANAGERS = ADMINS
 
 DATABASES = {
