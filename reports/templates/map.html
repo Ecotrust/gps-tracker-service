@@ -52,7 +52,7 @@
         } 
 
         var style = new OpenLayers.Style({
-            pointRadius: "4",
+            pointRadius: "${getsize}",
             fillColor: "${getfill}",
             fillOpacity: 0.8,
             strokeColor: "#cc6633",
@@ -61,10 +61,25 @@
         },{
             context: {
                 getfill: function(feature) {
-                    if (feature.object_id == cur_id) {
-                        return "red";
+                    var color;
+                    if (feature.rep_type == "STATIONARY") {
+                        color = "green";
                     } else {
-                        return "#ffcc66";
+                        color = "#ffcc66";
+                    }
+
+                    if (feature.object_id == cur_id) {
+                        color = "red";
+                    } else {
+                        color = "#ffcc66";
+                    }
+                    return color;
+                },
+                getsize: function(feature) {
+                    if (feature.object_id == cur_id) {
+                        return 7;
+                    } else {
+                        return 4;
                     }
                 }
             }
