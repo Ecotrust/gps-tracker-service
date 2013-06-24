@@ -62,14 +62,10 @@
             context: {
                 getfill: function(feature) {
                     var color;
-                    if (feature.rep_type == "STATIONARY") {
-                        color = "green";
-                    } else {
-                        color = "#ffcc66";
-                    }
-
                     if (feature.object_id == cur_id) {
                         color = "red";
+                    } else if (feature.rep_type == "STATIONARY") {
+                        color = "yellow";
                     } else {
                         color = "#ffcc66";
                     }
