@@ -30,6 +30,8 @@
     <script src="http://openlayers.org/dev/OpenLayers.debug.js"></script>
     <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
     <script type="text/javascript">
+        var cur_id = 0;
+
         function onPopupClose(evt) {
             selectControl.unselect(selectedFeature);
         }
@@ -51,11 +53,21 @@
 
         var style = new OpenLayers.Style({
             pointRadius: "4",
-            fillColor: "#ffcc66",
+            fillColor: "${getfill}",
             fillOpacity: 0.8,
             strokeColor: "#cc6633",
             strokeWidth: 2,
             strokeOpacity: 0.8
+        },{
+            context: {
+                getfill: function(feature) {
+                    if (feature.object_id == cur_id) {
+                        return "red";
+                    } else {
+                        return "#ffcc66";
+                    }
+                }
+            }
         });
 
         var point_vector = new OpenLayers.Layer.Vector("Reports", {
@@ -126,13 +138,16 @@
             data.objects.forEach( function(report) { 
                 feat = wkt_format.read(report.loc);                 
                 feat.geometry = feat.geometry.transform(sphere_proj, merc_proj);
-                point_list.push(feat.geometry);
+                feat.object_id = report.id;
+                cur_id = report.id;  //assumes last report is the current one and will be set to that in the end
                 feat.course = report.course;
                 feat.rep_type = report.rep_type;
                 feat.speed = report.speed;
                 feat.timestamp = report.timestamp;
                 point_vector.addFeatures([feat]);
+                point_list.push(feat.geometry);                
             });
+            console.log("cur_id:" + cur_id);
 
             line_vector.addFeatures([new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString(point_list))]);
 
