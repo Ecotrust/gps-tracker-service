@@ -31,5 +31,5 @@ class ReportResource(ModelResource):
         # format the timestamp to include timezone as tastypie doesn't
         bundle.data['timestamp'] = date(bundle.obj.timestamp, 'c')
         time = bundle.obj.timestamp+datetime.timedelta(hours=8)
-        bundle.data['ak_time'] = datetime.datetime(time.year+2000, time.month, time.day, time.hour, time.minute, time.second).strftime("%d/%m/%y %H:%M")
+        bundle.data['ak_time'] = datetime.datetime(time.year+2000, time.month, time.day, time.hour, time.minute, time.second).strftime("%m/%d/%y %H:%M")
         return bundle        
