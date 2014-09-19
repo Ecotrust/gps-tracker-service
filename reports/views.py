@@ -72,6 +72,7 @@ def submit(request):
     return HttpResponse("Report logged")
 
 
+@login_required
 def export(request):
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')
