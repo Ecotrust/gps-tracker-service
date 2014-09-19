@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from reports.models import Report
 import datetime
 import pytz
+import csv
 from django.contrib.gis.geos import Point
 
 def submit(request):
@@ -69,3 +70,21 @@ def submit(request):
     r.save()
     
     return HttpResponse("Report logged")
+
+
+def export(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="export.csv"'
+
+    writer = csv.writer(response)
+
+    # Write heading line.
+    writer.writerow(['imei', 'nmea_type', 'timestamp', 'status', 'loc', 'speed', 'course', 'voltage', 'rep_type', 'nmea_sentence', 'notes', 'ak_time'])
+
+    # Write each record to a line.
+    for r in Report.objects.all():
+        writer.writerow([r.imei, r.nmea_type, r.timestamp, r.status, r.loc, r.speed, r.course, r.voltage, r.rep_type, r.nmea_sentence, r.notes, r.ak_time])
+
+    return response
+
