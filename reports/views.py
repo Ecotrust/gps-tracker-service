@@ -80,11 +80,11 @@ def export(request):
     writer = csv.writer(response)
 
     # Write heading line.
-    writer.writerow(['imei', 'nmea_type', 'timestamp', 'status', 'loc', 'speed', 'course', 'voltage', 'rep_type', 'nmea_sentence', 'notes', 'ak_time'])
+    writer.writerow(['imei', 'nmea_type', 'timestamp', 'status', 'lat', 'lng', 'speed', 'course', 'voltage', 'rep_type', 'nmea_sentence', 'notes', 'ak_time'])
 
     # Write each record to a line.
     for r in Report.objects.all():
-        writer.writerow([r.imei, r.nmea_type, r.timestamp, r.status, r.loc, r.speed, r.course, r.voltage, r.rep_type, r.nmea_sentence, r.notes, r.ak_time])
+        writer.writerow([r.imei, r.nmea_type, r.timestamp, r.status, r.loc.y, r.loc.x, r.speed, r.course, r.voltage, r.rep_type, r.nmea_sentence, r.notes, r.ak_time])
 
     return response
 
