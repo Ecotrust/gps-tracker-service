@@ -9,5 +9,5 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^submit$', 'reports.views.submit', name='submit'),
     (r'^map/', login_required(TemplateView.as_view(template_name="map.html"))),
-    (r'^export/', 'reports.views.export', name='export')
+    url(r'^export/', 'reports.views.export', name='export')
 )
